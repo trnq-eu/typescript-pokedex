@@ -11,6 +11,7 @@ export class Cache {
 
     constructor(interval: number) {
         this.#interval = interval;
+        this.#startReapLoop();
     }
 
     public add<T>(key: string, val: T): void {
@@ -24,13 +25,24 @@ export class Cache {
     #reap(): void {
         const now = Date.now();
         for (const [key, entry] of this.#cache.entries()) {
-            if (entry.createdAt < (this.#interval)) {
+            if (entry.createdAt < (now - this.#interval)) {
                 this.#cache.delete(key);
             }
         }
     }
 
-    
+
+
+    #startReapLoop(): void {
+        this.#reapIntervalId = setInterval(() => this.#reap(), this.#interval);
+    }
+
+    public stopReapLoop(): void {
+        if (this.#reapIntervalId) {
+            clearInterval(this.#reapIntervalId);
+            this.#reapIntervalId = undefined;
+        }
+    }
 
 
     public get<T>(key: string): T | undefined {
