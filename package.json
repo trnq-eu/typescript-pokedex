@@ -1,0 +1,29 @@
+{
+  "name": "typescript-pokedex",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/main.js",
+    "dev": "npx tsc && node dist/main.js",
+    "test": "vitest --run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trnq-eu/typescript-pokedex.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trnq-eu/typescript-pokedex/issues"
+  },
+  "homepage": "https://github.com/trnq-eu/typescript-pokedex#readme",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.15.19",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.4"
+  }
+}
