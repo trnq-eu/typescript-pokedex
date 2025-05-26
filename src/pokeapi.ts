@@ -34,14 +34,12 @@ export class PokeAPI {
       return data
     }
   
-    async fetchLocation(locationName: string): Promise<Location> {
-        // let response
-        // const locationURL = `https://pokeapi.co/api/v2/location-area/${locationName}`
-        // response = await fetch(locationURL)
+    async fetchLocation(locationName: string): Promise<LocationAreaDetail> {
+     
         const locationURL = `${PokeAPI.baseURL}/location-area/${locationName}`
         
         // Check cache first
-        const cachedData = this.cache.get<Location>(locationURL);
+        const cachedData = this.cache.get<LocationAreaDetail>(locationURL);
 
         if (cachedData) {
           // console.log(`[Cache HIT] for ${locationURL}`); // Optional: for debugging
@@ -54,7 +52,9 @@ export class PokeAPI {
             //errors handling
             throw new Error(`HTTP error. Status: ${response.status} - ${response.statusText}`)
           }
-        const data = await response.json();
+
+        const data: LocationAreaDetail = await response.json();
+
 
         // Add to cache
         this.cache.add(locationURL, data);
@@ -77,7 +77,27 @@ results: Array<ShallowLocationResult>,
 
 };
 
-export type Location = {
-"name": string,
-"url": string
+// Represents a generic named resource from PokeAPI (like a Pokemon, Location, etc.)
+export type PokemonResource = {
+  name: string;
+  url: string;
 };
+
+export type LocationAreaPokemonEncounter = {
+  pokemon: PokemonResource;
+  version_details: any[];
+};
+
+export type LocationAreaDetail = {
+  id: number;
+  name: string;
+  game_index: number;
+  location: PokemonResource;
+  pokemon_encounters: LocationAreaPokemonEncounter[];
+
+}
+
+// export type Location = {
+// "name": string,
+// "url": string
+// };

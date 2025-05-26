@@ -1,4 +1,4 @@
-export async function commandMap(state) {
+export async function commandMap(state, ..._args) {
     let urlToFetch = state.nextLocationsURL;
     try {
         if (!urlToFetch) {

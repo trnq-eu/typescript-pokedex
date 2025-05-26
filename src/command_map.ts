@@ -1,6 +1,6 @@
 import  { State } from "./state.js"
 
-export async function commandMap(state: State) {
+export async function commandMap(state: State, ..._args: string[]) {
     let urlToFetch = state.nextLocationsURL
     try {
         if (!urlToFetch){

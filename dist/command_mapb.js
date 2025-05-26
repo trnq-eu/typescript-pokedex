@@ -1,4 +1,4 @@
-export async function commandMapb(state) {
+export async function commandMapb(state, ..._args) {
     let urlToFetch = state.prevLocationsURL;
     try {
         if (!urlToFetch) {

@@ -2,9 +2,15 @@ import { commandExit } from './command_exit.js';
 import { commandHelp } from "./command_help.js";
 import { commandMap } from './command_map.js';
 import { commandMapb } from './command_mapb.js';
+import { commandExplore } from './command_explore.js';
 export function cleanInput(input) {
-    // Convert to lowercase and split by spaces
-    return input.toLowerCase().trim().split(" ");
+    // // Convert to lowercase and split by spaces
+    // return input.toLowerCase().trim().split(" ");
+    return input
+        .trim()
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(Boolean); // Boolean('') is false, so it removes empty strings
 }
 export function getCommands() {
     return {
@@ -27,6 +33,11 @@ export function getCommands() {
             name: "mapb",
             description: "Displays a list of the previous 20 locations",
             callback: commandMapb,
+        },
+        explore: {
+            name: "explore",
+            description: "Explores a location",
+            callback: commandExplore,
         }
     };
 }
@@ -49,8 +60,9 @@ export function startREPL(state) {
             return;
         }
         else {
+            const commandArgs = cleanedInput.slice(1);
             try {
-                await command.callback(state);
+                await command.callback(state, ...commandArgs);
             }
             catch (error) {
                 console.log("Error:", error);

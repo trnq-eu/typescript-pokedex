@@ -25,9 +25,6 @@ export class PokeAPI {
         return data;
     }
     async fetchLocation(locationName) {
-        // let response
-        // const locationURL = `https://pokeapi.co/api/v2/location-area/${locationName}`
-        // response = await fetch(locationURL)
         const locationURL = `${PokeAPI.baseURL}/location-area/${locationName}`;
         // Check cache first
         const cachedData = this.cache.get(locationURL);
@@ -46,3 +43,7 @@ export class PokeAPI {
         return data;
     }
 }
+// export type Location = {
+// "name": string,
+// "url": string
+// };

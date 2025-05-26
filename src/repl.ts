@@ -72,8 +72,9 @@ export function startREPL(state: State) {
             state.rl.prompt()
             return
         } else {
+            const commandArgs = cleanedInput.slice(1);
             try {
-                await command.callback(state);
+                await command.callback(state, ...commandArgs);
             } catch (error) {
                 console.log("Error:", error);
             }

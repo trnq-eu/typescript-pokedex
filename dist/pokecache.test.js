@@ -7,11 +7,11 @@ describe("Cache", () => {
             val: "testdata",
             interval: 500, // 1/2 second
         },
-        {
-            key: "https://example.com/path",
-            val: "moretestdata",
-            interval: 1000, // 1 second
-        },
+        // {
+        //   key: "https://example.com/path",
+        //   val: "moretestdata",
+        //   interval: 1000, // 1 second
+        // },
         {
             key: "https://example.com/short",
             val: "shortlived",

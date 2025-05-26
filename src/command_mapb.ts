@@ -1,6 +1,6 @@
 import  { State } from "./state.js"
 
-export async function commandMapb(state: State) {
+export async function commandMapb(state: State, ..._args: string[]) {
     let urlToFetch = state.prevLocationsURL
     try {
         if (!urlToFetch){
