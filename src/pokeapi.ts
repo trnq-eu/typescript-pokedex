@@ -5,15 +5,11 @@ export class PokeAPI {
     private cache: Cache;
 
 
-    constructor(cacheInterval: number = 5 * 60 * 1000) { // Default cache interval: 5 minutes
+    constructor(cacheInterval: number = 5 * 60 * 100) {
       this.cache = new Cache(cacheInterval);
     }
   
     async fetchLocations(pageURL?: string): Promise<ShallowLocations> {
-      // let response 
-      // if (!pageURL){
-      //   pageURL = 'https://pokeapi.co/api/v2/location-area/'
-      // }
       const urlToFetch = pageURL || `${PokeAPI.baseURL}/location-area/`;
       
       // Check cache first
@@ -25,7 +21,6 @@ export class PokeAPI {
   
       const response = await fetch(urlToFetch);
       
-      // response = await fetch(pageURL);
       if (!response.ok) {
         //errors handling
         throw new Error(`HTTP error. Status: ${response.status} - ${response.statusText}`)
@@ -40,14 +35,30 @@ export class PokeAPI {
     }
   
     async fetchLocation(locationName: string): Promise<Location> {
-        let response
-        const locationURL = `https://pokeapi.co/api/v2/location-area/${locationName}`
-        response = await fetch(locationURL)
+        // let response
+        // const locationURL = `https://pokeapi.co/api/v2/location-area/${locationName}`
+        // response = await fetch(locationURL)
+        const locationURL = `${PokeAPI.baseURL}/location-area/${locationName}`
+        
+        // Check cache first
+        const cachedData = this.cache.get<Location>(locationURL);
+
+        if (cachedData) {
+          // console.log(`[Cache HIT] for ${locationURL}`); // Optional: for debugging
+          return cachedData;
+        }
+
+        const response = await fetch(locationURL);
+
         if (!response.ok) {
             //errors handling
             throw new Error(`HTTP error. Status: ${response.status} - ${response.statusText}`)
           }
         const data = await response.json();
+
+        // Add to cache
+        this.cache.add(locationURL, data);
+
         return data
   }
 }

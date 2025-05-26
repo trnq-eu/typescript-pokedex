@@ -3,12 +3,18 @@ import { commandExit } from './command_exit.js';
 import { commandHelp } from "./command_help.js";
 import { commandMap } from './command_map.js';
 import { commandMapb } from './command_mapb.js'
+import { commandExplore } from './command_explore.js';
 import { PokeAPI } from "./pokeapi.js";
 import { State, initState, CLICommand } from "./state.js"
 
 export function cleanInput(input: string): string[] {
-    // Convert to lowercase and split by spaces
-    return input.toLowerCase().trim().split(" ");
+    // // Convert to lowercase and split by spaces
+    // return input.toLowerCase().trim().split(" ");
+    return input
+      .trim()
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(Boolean); // Boolean('') is false, so it removes empty strings
   }
 
 export function getCommands(): Record<string, CLICommand> {
@@ -32,6 +38,11 @@ export function getCommands(): Record<string, CLICommand> {
             name: "mapb",
             description: "Displays a list of the previous 20 locations",
             callback: commandMapb,
+        },
+        explore: {
+            name: "explore",
+            description: "Explores a location",
+            callback: commandExplore,
         }
     };
 }
