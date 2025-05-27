@@ -61,7 +61,50 @@ export class PokeAPI {
 
         return data
   }
+
+      async fetchPokemon(pokemonName: string): Promise<Pokemon> {
+        const pokemonURL = `${PokeAPI.baseURL}/pokemon/${pokemonName}`;
+
+        // Check cache first
+        const cachedData = this.cache.get<Pokemon>(pokemonURL);
+
+        if (cachedData) {
+          return cachedData;
+      }
+        const response = await fetch(pokemonURL);
+
+         if (!response.ok) {
+        //errors handling
+        throw new Error(`HTTP error. Status: ${response.status} - ${response.statusText}`)
+      }
+
+      const data: Pokemon = await response.json();
+
+      // Add to cache
+      this.cache.add(pokemonURL, data);
+
+      return data;
+
 }
+
+export type Pokemon = {
+  id: number;
+  name: string;
+  base_ability: number;
+   base_experience: number;
+  height: number;
+  weight: number;
+  stats: Array<{
+    base_stat: number;
+    stat: { name: string; url: string };
+  }>;
+  types: Array<{
+    slot: number;
+    type: { name: string; url: string };
+  }>;
+
+}
+
 
 export type ShallowLocationResult = {
     "name": string,
