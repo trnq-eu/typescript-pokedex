@@ -85,13 +85,13 @@ export class PokeAPI {
 
       return data;
 
+  }
 }
 
 export type Pokemon = {
   id: number;
   name: string;
-  base_ability: number;
-   base_experience: number;
+  base_experience: number;
   height: number;
   weight: number;
   stats: Array<{

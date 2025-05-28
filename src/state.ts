@@ -1,6 +1,6 @@
 import { getCommands } from "./repl.js"
 import { createInterface, type Interface } from "readline";
-import { PokeAPI } from "./pokeapi.js"
+import { PokeAPI , type Pokemon } from "./pokeapi.js"
 import * as readline from 'readline';
 
 
@@ -10,6 +10,7 @@ export type State = {
     pokeAPIobj: PokeAPI;
     nextLocationsURL: string | null;
     prevLocationsURL: string | null;
+    pokedex: Record<string, Pokemon>;
 }
 
 export type CLICommand = {
@@ -30,5 +31,7 @@ export function initState(): State {
         // start at the FIRST page! No previous page yet.
         const nextLocationsURL = "https://pokeapi.co/api/v2/location-area/";
         const prevLocationsURL = null;
-        return {rl, commands, pokeAPIobj,nextLocationsURL, prevLocationsURL}
+        // return {rl, commands, pokeAPIobj,nextLocationsURL, prevLocationsURL}
+        const pokedex: Record<string, Pokemon> = {};
+        return { rl, commands, pokeAPIobj, nextLocationsURL, prevLocationsURL, pokedex };
 }

@@ -13,5 +13,7 @@ export function initState() {
     // start at the FIRST page! No previous page yet.
     const nextLocationsURL = "https://pokeapi.co/api/v2/location-area/";
     const prevLocationsURL = null;
-    return { rl, commands, pokeAPIobj, nextLocationsURL, prevLocationsURL };
+    // return {rl, commands, pokeAPIobj,nextLocationsURL, prevLocationsURL}
+    const pokedex = {};
+    return { rl, commands, pokeAPIobj, nextLocationsURL, prevLocationsURL, pokedex };
 }

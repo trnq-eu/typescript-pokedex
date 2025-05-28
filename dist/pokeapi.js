@@ -42,6 +42,23 @@ export class PokeAPI {
         this.cache.add(locationURL, data);
         return data;
     }
+    async fetchPokemon(pokemonName) {
+        const pokemonURL = `${PokeAPI.baseURL}/pokemon/${pokemonName}`;
+        // Check cache first
+        const cachedData = this.cache.get(pokemonURL);
+        if (cachedData) {
+            return cachedData;
+        }
+        const response = await fetch(pokemonURL);
+        if (!response.ok) {
+            //errors handling
+            throw new Error(`HTTP error. Status: ${response.status} - ${response.statusText}`);
+        }
+        const data = await response.json();
+        // Add to cache
+        this.cache.add(pokemonURL, data);
+        return data;
+    }
 }
 // export type Location = {
 // "name": string,
