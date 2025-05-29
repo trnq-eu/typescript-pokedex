@@ -2,7 +2,10 @@ import { commandExit } from './command_exit.js';
 import { commandHelp } from "./command_help.js";
 import { commandMap } from './command_map.js';
 import { commandMapb } from './command_mapb.js';
+import { commandCatch } from './command_catch.js';
 import { commandExplore } from './command_explore.js';
+import { commandInspect } from "./command_inspect.js";
+import { commandPokedex } from "./command_pokedex.js";
 export function cleanInput(input) {
     // // Convert to lowercase and split by spaces
     // return input.toLowerCase().trim().split(" ");
@@ -38,6 +41,21 @@ export function getCommands() {
             name: "explore",
             description: "Explores a location",
             callback: commandExplore,
+        },
+        catch: {
+            name: "catch",
+            description: "Attempts to catch a Pokemon by its name",
+            callback: commandCatch,
+        },
+        inspect: {
+            name: "inspect",
+            description: "Inspects a Pokemon attributes",
+            callback: commandInspect,
+        },
+        pokedex: {
+            name: "pokedex",
+            description: "List the content of your Pokedex",
+            callback: commandPokedex,
         }
     };
 }
